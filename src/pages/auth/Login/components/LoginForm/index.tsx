@@ -1,14 +1,12 @@
-import { FunctionComponent, memo, useState, useEffect  } from "react";
+import { FunctionComponent, memo, useState  } from "react";
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import LogoForm from "../../../../components/LogoForms";
+import LogoForm from "../../../../../components/LogoForms";
+import { useUserAuth } from "../../../../../common/contexts/UserAuthContext";
+import GoogleButton from 'react-google-button'
 
 interface LoginFormProps {
     
-}
-
-const initialState = {
-    email: '',
-    pass: ''
 }
 
 const StyledLoginForm = styled.main`
@@ -23,18 +21,48 @@ const StyledLoginForm = styled.main`
 `;
  
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
-    const [user, setUser] = useState(initialState);
+    const { signIn, googleSignIn, erro, setErro } = useUserAuth();
     const [email, setEmail] = useState<string>('');
     const [pass, setPass] = useState<string>('');
+    const [authenticating, setAuthenticating] = useState<boolean>(false);
 
-    const handleSumbit = (e: React.FormEvent<HTMLFormElement>):void => {
+    const navigate = useNavigate();
+
+    const handleSumbit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault();
-        setUser({email, pass})
+
+        if (erro !== '') setErro('');
+
+        setAuthenticating(true);
+
+        await signIn(email, pass)
+        .then((result: any) => {
+            console.log(result);
+            navigate('/')
+        })
+        .catch((error: { message: any; }) => {
+            console.log(error);
+            setAuthenticating(false);
+            setErro(error.message);
+        })
     }
 
-    useEffect(() => {
-        console.log(user);
-    }, [user])
+    const handleGoogleSignIn = async (): Promise<void> => {
+        if (erro !== '') setErro('');
+
+        setAuthenticating(true);
+
+        await googleSignIn()
+        .then((result: any) => {
+            console.log(result);
+            navigate('/')
+        })
+        .catch((error: { message: any; }) => {
+            console.log(error);
+            setAuthenticating(false);
+            setErro(error.message);
+        })
+      }
 
     return ( 
         <StyledLoginForm className="form-signin m-auto my-auto">
@@ -47,6 +75,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                 <div className="form-floating my-2">
                     <input 
                         type="email"
+                        autoComplete="username"
                         className="form-control"
                         id="floatingInput"
                         placeholder="name@example.com"
@@ -58,6 +87,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                 <div className="form-floating my-2">
                     <input 
                         type="password"
+                        autoComplete="current-password"
                         className="form-control"
                         id="floatingPassword"
                         placeholder="Password"
@@ -72,7 +102,8 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                         <input type="checkbox" value="remember-me" /> Remember me
                     </label>
                 </div>
-                <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={authenticating}>Sign in</button>
+                <GoogleButton className='g-btn mt-3 w-100 rounded-2' type='dark' onClick={ async () => await handleGoogleSignIn() }/>
                 <p className="mt-5 mb-3 text-muted text-center">© 2023</p>
             </form>
         </StyledLoginForm>
