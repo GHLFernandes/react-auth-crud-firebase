@@ -1,8 +1,8 @@
-import { FunctionComponent, memo, useState, useEffect  } from "react";
+import { FunctionComponent, memo, useState, useEffect } from "react";
 import styled from "styled-components";
 import LogoForm from "../../../../components/LogoForms";
 
-interface LoginFormProps {
+interface RegisterFormProps {
     
 }
 
@@ -11,7 +11,7 @@ const initialState = {
     pass: ''
 }
 
-const StyledLoginForm = styled.main`
+const StyledRegisterForm = styled.main`
 
     @media(min-width: 720px){
         width: 55vw;
@@ -22,7 +22,7 @@ const StyledLoginForm = styled.main`
     }
 `;
  
-const LoginForm: FunctionComponent<LoginFormProps> = () => {
+const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     const [user, setUser] = useState(initialState);
     const [email, setEmail] = useState<string>('');
     const [pass, setPass] = useState<string>('');
@@ -37,11 +37,11 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     }, [user])
 
     return ( 
-        <StyledLoginForm className="form-signin m-auto my-auto">
+        <StyledRegisterForm className="form-signup m-auto my-auto">
             <form onSubmit={(e) => handleSumbit(e)}>
                 <div className="head text-center">
                     <LogoForm />
-                    <h1 className="h4 my-4 fw-normal">Please sign in</h1>
+                    <h1 className="h4 my-4 fw-normal">Please sign up</h1>
                 </div>
 
                 <div className="form-floating my-2">
@@ -67,16 +67,11 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
 
-                <div className="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me" /> Remember me
-                    </label>
-                </div>
-                <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <button className="w-100 btn btn-lg btn-primary" type="submit">Register</button>
                 <p className="mt-5 mb-3 text-muted text-center">© 2023</p>
             </form>
-        </StyledLoginForm>
+        </StyledRegisterForm>
      );
 }
  
-export default memo(LoginForm);
+export default memo(RegisterForm);
