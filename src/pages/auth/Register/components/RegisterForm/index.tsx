@@ -113,7 +113,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                     <label htmlFor="confirm">Confirm Password</label>
                 </div>
 
-                <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={registering}>Register</button>
+                <button className={`w-100 btn btn-lg btn-primary`} type="submit" disabled={registering}>
+                    {(registering) &&  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>}
+                    Register
+                </button>
                 <p className="mt-5 mb-3 text-muted text-center">© 2023</p>
             </form>
         </StyledRegisterForm>

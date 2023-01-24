@@ -1,5 +1,5 @@
 import { FunctionComponent, createContext, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, User } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from '../../../config/firebase';
 
 interface UserAuthContextProviderProps {
@@ -9,15 +9,12 @@ interface UserAuthContextProviderProps {
 const UserAuthContext = createContext({});
  
 export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderProps> = (UserAuthContextProviderProps) => {
-    const [user, setUser] = useState<User | null>();
     const [erro, setErro] = useState({});
-    const [loading, setLoading] = useState<boolean>(true);
 
     const signUp = async (email: string, password: string): Promise<any> => {
         return await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
           // Signed up
-          setUser(userCredential.user);
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -31,7 +28,6 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             .then((userCredential) => {
             // Signed in
             console.log('Sign in')
-            setUser(userCredential.user);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -58,7 +54,6 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
         return await signInWithPopup(auth, googleAuthProvider)
             .then((userCredential) => {
             // Signed in
-            setUser(userCredential.user);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -67,27 +62,8 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             })
     }
 
-    useEffect(() => {
-        localStorage.setItem('user', JSON.stringify(user))
-    }, [user])
-
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            // if (user)
-            // {
-            //     console.log('User detected.');
-            // }
-            // else
-            // {
-            //     console.log('No user detected');
-            // }
-
-            setLoading(false);
-        })
-    }, []);
-
     return ( 
-        <UserAuthContext.Provider value={{ user, signUp, signIn, signOutUser, googleSignIn, erro, setErro, loading }} >
+        <UserAuthContext.Provider value={{ signUp, signIn, signOutUser, googleSignIn, erro, setErro }} >
             { UserAuthContextProviderProps.children }
         </UserAuthContext.Provider>
      );

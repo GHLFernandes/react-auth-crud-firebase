@@ -102,7 +102,10 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                         <input type="checkbox" value="remember-me" /> Remember me
                     </label>
                 </div>
-                <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={authenticating}>Sign in</button>
+                <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={authenticating}>
+                {(authenticating) && <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>}
+                    Sign in
+                </button>
                 <GoogleButton className='g-btn mt-3 w-100 rounded-2' type='dark' onClick={ async () => await handleGoogleSignIn() }/>
                 <p className="mt-5 mb-3 text-muted text-center">© 2023</p>
             </form>
