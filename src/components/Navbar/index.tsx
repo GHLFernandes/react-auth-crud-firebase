@@ -1,4 +1,4 @@
-import { FunctionComponent, memo, useEffect, useState } from "react";
+import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import Account from "./Account";
 import { Link } from "react-router-dom";
@@ -55,10 +55,10 @@ const Navbar: FunctionComponent<NavProps> = ( props ) => {
                     <div className="text-end ps-5">
                         {(!loggedIn) ?
                             <>
-                                <Link to='/login'>
+                                <Link to='login'>
                                     <button type="button" className="btn btn-outline-light me-2">Login</button>
                                 </Link>
-                                <Link to='/register'>
+                                <Link to='register'>
                                     <button type="button" className="btn btn-warning">Sign-up</button>
                                 </Link>
                             </>

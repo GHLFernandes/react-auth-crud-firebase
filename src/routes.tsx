@@ -1,4 +1,4 @@
-import { FunctionComponent, Suspense, lazy, useEffect, useState } from "react";
+import { FunctionComponent, lazy, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthRoute from "./components/AuthRoute";
@@ -7,6 +7,7 @@ import { auth } from "./config/firebase";
 const LoginPage = lazy(async () => await import('./pages/auth/Login'))
 const RegisterPage = lazy(async () => await import('./pages/auth/Register'))
 const LogoutPage = lazy(async () => await import('./pages/auth/Logout'))
+const Home = lazy(async () => await import('./pages/Home'))
 
 const AppRouter: FunctionComponent = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -44,20 +45,20 @@ const AppRouter: FunctionComponent = () => {
     return ( 
         <Router>
             <Navbar loggedIn={loggedIn} />
-                <Routes>
-                    <Route index element={
-                        <AuthRoute>
-                            <LoginPage />
-                        </AuthRoute>
-                    } />
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path='/register' element={<RegisterPage />} />
-                    <Route path='/logout' element={
-                        <AuthRoute>
-                            <LogoutPage />
-                        </AuthRoute>
-                    } />
-                </Routes>
+            <Routes>
+                <Route path='/' element={
+                    <AuthRoute>
+                        <Home />
+                    </AuthRoute>
+                } />
+                <Route path='/login' element={<LoginPage />} />
+                <Route path='/register' element={<RegisterPage />} />
+                <Route path='/logout' element={
+                    <AuthRoute>
+                        <LogoutPage />
+                    </AuthRoute>
+                } />
+            </Routes>
         </Router>
      );
 }
