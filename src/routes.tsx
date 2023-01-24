@@ -7,6 +7,7 @@ import { auth } from "./config/firebase";
 const LoginPage = lazy(async () => await import('./pages/auth/Login'))
 const RegisterPage = lazy(async () => await import('./pages/auth/Register'))
 const LogoutPage = lazy(async () => await import('./pages/auth/Logout'))
+const ChangePass = lazy(async () => await import('./pages/auth/ChangePass'))
 const Home = lazy(async () => await import('./pages/Home'))
 
 const AppRouter: FunctionComponent = () => {
@@ -56,6 +57,11 @@ const AppRouter: FunctionComponent = () => {
                 <Route path='/logout' element={
                     <AuthRoute>
                         <LogoutPage />
+                    </AuthRoute>
+                } />
+                <Route path='/change-pass' element={
+                    <AuthRoute>
+                        <ChangePass />
                     </AuthRoute>
                 } />
             </Routes>

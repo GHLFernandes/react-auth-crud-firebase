@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo, useEffect, useState } from "react";
+import React, { FunctionComponent, memo} from "react";
 import styled from "styled-components";
 import Account from "./Account";
 import { Link } from "react-router-dom";

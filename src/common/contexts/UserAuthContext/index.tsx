@@ -1,5 +1,5 @@
 import { FunctionComponent, createContext, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, updatePassword, User } from 'firebase/auth'
 import { auth } from '../../../config/firebase';
 
 interface UserAuthContextProviderProps {
@@ -62,8 +62,20 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             })
     }
 
+    const changePass = async (user: User, password:string): Promise<any> => {
+        return await updatePassword(user, password)
+            .then(() => {
+                console.log('Pass Changed!')
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setErro({ errorCode, errorMessage });
+            })
+    }
+
     return ( 
-        <UserAuthContext.Provider value={{ signUp, signIn, signOutUser, googleSignIn, erro, setErro }} >
+        <UserAuthContext.Provider value={{ signUp, signIn, signOutUser, googleSignIn, changePass, erro, setErro }} >
             { UserAuthContextProviderProps.children }
         </UserAuthContext.Provider>
      );

@@ -1,4 +1,5 @@
-import { FunctionComponent, memo } from "react";
+import React, { FunctionComponent, memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Dropdown = styled.ul`
@@ -16,9 +17,13 @@ const Account: FunctionComponent = () => {
                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle"/>
             </a>
             <Dropdown className="dropdown-menu text-small">
-                <li><a className="dropdown-item" href="#">New project...</a></li>
-                <li><a className="dropdown-item" href="#">Settings</a></li>
                 <li><a className="dropdown-item" href="#">Profile</a></li>
+                <li><a className="dropdown-item" href="#">Settings</a></li>
+                <li>
+                    <Link to='/change-pass' >
+                        <span className="dropdown-item">Change Password</span>
+                    </Link>
+                </li>
                 <li><hr className="dropdown-divider"/></li>
                 <li><a className="dropdown-item" href="/logout">Sign out</a></li>
             </Dropdown>

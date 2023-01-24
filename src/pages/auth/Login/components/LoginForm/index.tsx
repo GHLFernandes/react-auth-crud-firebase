@@ -1,5 +1,5 @@
-import { FunctionComponent, memo, useState  } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { FunctionComponent, memo, useState  } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import LogoForm from "../../../../../components/LogoForms";
 import { useUserAuth } from "../../../../../common/contexts/UserAuthContext";
@@ -97,17 +97,20 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
 
-                <div className="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me" /> Remember me
-                    </label>
+                <div className="d-flex justify-content-between mb-3">
+                    <Link to='/register'>
+                        <span>New around here? Sign up</span>
+                    </Link>
+                    <Link to='/register'>
+                        <span className="text-end">Forgot password?</span>
+                    </Link>
                 </div>
+
                 <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={authenticating}>
                 {(authenticating) && <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>}
                     Sign in
                 </button>
                 <GoogleButton className='g-btn mt-3 w-100 rounded-2' type='dark' onClick={ async () => await handleGoogleSignIn() }/>
-                <p className="mt-5 mb-3 text-muted text-center">© 2023</p>
             </form>
         </StyledLoginForm>
      );

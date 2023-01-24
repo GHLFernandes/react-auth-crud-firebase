@@ -10,6 +10,7 @@ const Login: FunctionComponent<LoginProps> = () => {
         <div className="container w-75 h-100 ">
             <div className="row h-100 justify-content-center align-items-center">
                 <LoginForm />
+                <p className="mt-5 mb-3 text-muted text-center">© 2023</p>
             </div>
         </div>
      );
