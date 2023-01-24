@@ -4,9 +4,10 @@ import { auth } from "../../config/firebase";
 
 
 interface AuthRouteProps {
+    children: JSX.Element
 }
  
-const AuthRoute: FunctionComponent<AuthRouteProps> = (props): any => {
+const AuthRoute: FunctionComponent<AuthRouteProps> = ( props ): any => {
     const { children } = props;
 
     if (!auth.currentUser)

@@ -1,4 +1,4 @@
-import { FunctionComponent, createContext, useContext, useEffect, useState } from "react";
+import { FunctionComponent, createContext, useContext, useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, updatePassword, User } from 'firebase/auth'
 import { auth } from '../../../config/firebase';
 

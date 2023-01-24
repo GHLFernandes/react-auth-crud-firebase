@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -25,7 +25,11 @@ const Account: FunctionComponent = () => {
                     </Link>
                 </li>
                 <li><hr className="dropdown-divider"/></li>
-                <li><a className="dropdown-item" href="/logout">Sign out</a></li>
+                <li>
+                    <Link to='/logout' >
+                            <span className="dropdown-item">Sign out</span>
+                    </Link>
+                </li>
             </Dropdown>
         </div>
      );

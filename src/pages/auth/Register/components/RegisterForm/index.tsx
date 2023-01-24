@@ -1,4 +1,4 @@
-import { FunctionComponent, memo, useState, useEffect } from "react";
+import { FunctionComponent, memo, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import LogoForm from "../../../../../components/LogoForms";

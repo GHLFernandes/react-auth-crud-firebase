@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo} from "react";
+import { FunctionComponent, memo} from "react";
 import styled from "styled-components";
 import Account from "./Account";
 import { Link } from "react-router-dom";
@@ -70,7 +70,7 @@ const Navbar: FunctionComponent<NavProps> = ( props ) => {
                 </div>
             </div>
         </Nav>
- );
+    );
 }
  
 export default memo(Navbar);
