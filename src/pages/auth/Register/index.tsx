@@ -7,9 +7,11 @@ interface RegisterProps {
  
 const Register: FunctionComponent<RegisterProps> = () => {
     return ( 
-        <div className="container w-75">
-            <div className="row">
-                <RegisterForm />
+        <div className="container w-75 h-100 ">
+            <div className="row h-100 justify-content-center align-items-center">
+                <div className="row">
+                    <RegisterForm />
+                </div>
             </div>
         </div>
      );

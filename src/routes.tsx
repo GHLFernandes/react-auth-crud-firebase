@@ -10,17 +10,20 @@ const LogoutPage = lazy(async () => await import('./pages/auth/Logout'))
 
 const AppRouter: FunctionComponent = () => {
     const [loading, setLoading] = useState<boolean>(true);
+    const [ loggedIn, setLoggendIn] = useState<boolean>(false);
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user)
             {
                 console.log('User detected.');
-                localStorage.setItem('user', JSON.stringify(user))
+                setLoggendIn(true);
+                localStorage.setItem('user', JSON.stringify(user));
             }
             else
             {
                 console.log('No user detected');
+                setLoggendIn(false);
             }
       
             setLoading(false);
@@ -40,7 +43,7 @@ const AppRouter: FunctionComponent = () => {
       
     return ( 
         <Router>
-            <Navbar />
+            <Navbar loggedIn={loggedIn} />
                 <Routes>
                     <Route index element={
                         <AuthRoute>

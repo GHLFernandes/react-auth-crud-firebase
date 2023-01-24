@@ -1,7 +1,11 @@
-import { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import Account from "./Account";
 import { Link } from "react-router-dom";
+
+interface NavProps {
+    loggedIn: boolean
+}
 
 const Nav = styled.nav`
     @media(min-width: 1020px){
@@ -15,11 +19,13 @@ const Nav = styled.nav`
     }
 `;
 
-const Navbar: FunctionComponent = () => {
+const Navbar: FunctionComponent<NavProps> = ( props ) => {
+    const { loggedIn } = props;
+
     return (
         <Nav className="navbar navbar-expand-lg bg-dark px-3">
             <div className="container-fluid">
-                <a className="navbar-brand  text-white" href="#"> 
+                <a className="navbar-brand  text-white" href="/"> 
                     <i className="fa-solid fa-code pe-2"></i><span>GF Desenvolvimento</span>
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,24 +51,22 @@ const Navbar: FunctionComponent = () => {
                             </ul>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-light me-2" type="submit">Search</button>
-                    </form>
-                
-                    { /*WHEN LOGGED OFF */ }
-                    <div className="text-end px-5">
-                        <Link to='/login'>
-                            <button type="button" className="btn btn-outline-light me-2">Login</button>
-                        </Link>
-                        <Link to='/register'>
-                            <button type="button" className="btn btn-warning">Sign-up</button>
-                        </Link>
-                    </div>
 
-                    { /*WHEN LOGGED IN */ }
-                   
-                    <Account />
+                    <div className="text-end ps-5">
+                        {(!loggedIn) ?
+                            <>
+                                <Link to='/login'>
+                                    <button type="button" className="btn btn-outline-light me-2">Login</button>
+                                </Link>
+                                <Link to='/register'>
+                                    <button type="button" className="btn btn-warning">Sign-up</button>
+                                </Link>
+                            </>
+                        : 
+                            <Account />
+                        }             
+                    </div> 
+                    
                 </div>
             </div>
         </Nav>
