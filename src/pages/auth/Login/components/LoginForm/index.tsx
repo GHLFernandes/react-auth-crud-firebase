@@ -34,15 +34,15 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
         if (erro !== '') setErro('');
 
-        if (erro.code == 'auth/network-request-failed'){
+        if (erro.code === 'auth/network-request-failed'){
             setErro('Password wrong! Please try again with valid credential.');
             return;
         }
-        else if (erro.code == 'auth/email-already-in-use'){
+        else if (erro.code === 'auth/email-already-in-use'){
             setErro('Email already in use.');
             return;
         }
-        else if (erro.code == 'auth/invalid-email' || erro.code == 'auth/user-not-found)'){
+        else if (erro.code === 'auth/invalid-email' || erro.code === 'auth/user-not-found)'){
             setErro('Invalid e-mail. Please try again with valid credentials.');
             return;
         }
