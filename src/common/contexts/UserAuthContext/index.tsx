@@ -9,18 +9,16 @@ interface UserAuthContextProviderProps {
 const UserAuthContext = createContext({});
  
 export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderProps> = (UserAuthContextProviderProps) => {
-    const [erro, setErro] = useState({});
+    const [erro, setErro] = useState('');
 
     const signUp = async (email: string, password: string): Promise<any> => {
         return await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
           // Signed up
           })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            setErro({ errorCode, errorMessage });
-          })
+          .catch((error: { message: string, code: string}) => {
+            setErro(error.code);
+        })
     }
 
     const signIn = async (email: string, password: string): Promise<any> => {
@@ -29,10 +27,8 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             // Signed in
             console.log('Sign in')
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErro({ errorCode, errorMessage });
+            .catch((error: { message: string, code: string}) => {
+                setErro(error.message);
             })
         }
 
@@ -41,10 +37,8 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             .then(() => {
             console.log('Sign out')
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErro({ errorCode, errorMessage });
+            .catch((error: { message: string, code: string}) => {
+                setErro(error.message);
             })
         }
 
@@ -55,10 +49,8 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             .then((userCredential) => {
             // Signed in
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErro({ errorCode, errorMessage });
+            .catch((error: { message: string, code: string}) => {
+                setErro(error.message);
             })
     }
 
@@ -67,10 +59,8 @@ export const UserAuthContextProvider: FunctionComponent<UserAuthContextProviderP
             .then(() => {
                 console.log('Pass Changed!')
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErro({ errorCode, errorMessage });
+            .catch((error: { message: string, code: string}) => {
+                setErro(error.message);
             })
     }
 

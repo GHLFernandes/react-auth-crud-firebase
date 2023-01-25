@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LogoForm from "../../../../../components/LogoForms";
 import { useUserAuth } from "../../../../../common/contexts/UserAuthContext";
 import GoogleButton from 'react-google-button'
+import ErroText from "../../../../../components/ErroText";
 
 interface LoginFormProps {
     
@@ -33,14 +34,27 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
         if (erro !== '') setErro('');
 
+        if (erro.code == 'auth/network-request-failed'){
+            setErro('Password wrong! Please try again with valid credential.');
+            return;
+        }
+        else if (erro.code == 'auth/email-already-in-use'){
+            setErro('Email already in use.');
+            return;
+        }
+        else if (erro.code == 'auth/invalid-email' || erro.code == 'auth/user-not-found)'){
+            setErro('Invalid e-mail. Please try again with valid credentials.');
+            return;
+        }
+
         setAuthenticating(true);
 
         await signIn(email, pass)
         .then((result: any) => {
+            navigate('/');
             console.log(result);
-            navigate('/')
         })
-        .catch((error: { message: any; }) => {
+        .catch((error: { message: string; code: string }) => {
             console.log(error);
             setAuthenticating(false);
             setErro(error.message);
@@ -96,6 +110,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
                     />
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
+                <ErroText erro={erro}/>
 
                 <div className="d-flex justify-content-between mb-3">
                     <Link to='/register'>

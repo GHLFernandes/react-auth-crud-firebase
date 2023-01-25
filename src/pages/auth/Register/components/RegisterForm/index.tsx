@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import LogoForm from "../../../../../components/LogoForms";
 import { useUserAuth } from "../../../../../common/contexts/UserAuthContext";
+import ErroText from "../../../../../components/ErroText";
 
 
 interface RegisterFormProps {
@@ -35,7 +36,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
 
         if (pass !== confirm)
         {
-            setErro('Please make sure your passwords match.');
+            setErro('Please make sure your password match.');
             return;
         }
 
@@ -49,20 +50,16 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
         })
         .catch((error: { code: string | string[]; }) => {
             console.log(error);
-
-            if (error.code.includes('auth/weak-password'))
-            {
+            if (error.code === 'auth/weak-password'){
                 setErro('Please enter a stronger password.');
             }
-            else if (error.code.includes('auth/email-already-in-use'))
-            {
+            else if (error.code === 'auth/email-already-in-use'){
                 setErro('Email already in use.');
             }
-            else
-            {
-                setErro('Unable to register.  Please try again later.')
+            else{
+                setErro('Unable to register. Please try again later.')
             }
-
+            navigate('/register');
             setRegistering(false);
         });
     }
@@ -112,6 +109,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
                     />
                     <label htmlFor="confirm">Confirm Password</label>
                 </div>
+                <ErroText erro={erro}/>
 
                 <button className={`w-100 btn btn-lg btn-primary`} type="submit" disabled={registering}>
                     {(registering) &&  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>}
