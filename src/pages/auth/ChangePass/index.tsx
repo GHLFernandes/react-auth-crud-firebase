@@ -2,7 +2,6 @@ import { FC, memo, useState } from "react";
 import styled from "styled-components";
 import { useUserAuth } from "../../../common/contexts/UserAuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import LogoForm from "../../../components/LogoForms";
 import { auth } from "../../../config/firebase";
 
 interface ChangePassProps {
