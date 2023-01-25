@@ -1,7 +1,7 @@
 import { FunctionComponent, memo} from "react";
 import styled from "styled-components";
 import Account from "./Account";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface NavProps {
     loggedIn: boolean
@@ -21,6 +21,11 @@ const Nav = styled.nav`
 
 const Navbar: FunctionComponent<NavProps> = ( props ) => {
     const { loggedIn } = props;
+    let location = useLocation();
+
+    if(location.pathname === '/login' || location.pathname === '/register'){
+        return null;
+    }
 
     return (
         <Nav className="navbar navbar-expand-lg bg-dark px-3">

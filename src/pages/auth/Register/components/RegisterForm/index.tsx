@@ -39,6 +39,18 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
             setErro('Please make sure your password match.');
             return;
         }
+        
+        if (erro.code === 'auth/weak-password'){
+            setErro('Please enter a stronger password.');
+            return;
+        }
+        else if (erro.code === 'auth/email-already-in-use'){
+            setErro('Email already in use.');
+            return;
+        }
+        else{
+            setErro('Unable to register. Please try again later.')
+        }
 
         if (erro !== '') setErro('');
 
@@ -46,21 +58,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
 
         await signUp(email, pass)
         .then(() => {
-            navigate('/login');
+            navigate('/');
         })
         .catch((error: { code: string | string[]; }) => {
             console.log(error);
-            if (error.code === 'auth/weak-password'){
-                setErro('Please enter a stronger password.');
-            }
-            else if (error.code === 'auth/email-already-in-use'){
-                setErro('Email already in use.');
-            }
-            else{
-                setErro('Unable to register. Please try again later.')
-            }
-            navigate('/register');
-            setRegistering(false);
         });
     }
 

@@ -29,6 +29,7 @@ const ChangePass: FC<ChangePassProps> = ( props ) => {
     const navigate = useNavigate();
     const user = auth.currentUser;
 
+    console.log(user)
     const handleSumbit = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault();
 
@@ -59,13 +60,8 @@ const ChangePass: FC<ChangePassProps> = ( props ) => {
     }
 
     return ( 
-        <StyledChangePass className="form-signin m-auto my-auto">
+        <StyledChangePass className="form-signin m-auto my-auto w-25">
             <form onSubmit={(e) => handleSumbit(e)}>
-                <div className="head text-center">
-                    <LogoForm />
-                    <h1 className="h4 my-4 fw-normal">Change Password</h1>
-                </div>
-
                 <div className="form-floating my-2">
                     <input 
                         type="password"
